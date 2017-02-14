@@ -1,15 +1,16 @@
 /**
- * @ 省市联动插件
- * @ 2017-1-12
+ * @ 省市联动插件 by 前端老徐 2017-1-12
  * 
-	<select id="province-picker"></select>
-	<select id="city-picker"></select>
-
+	<form id="form">
+		<select id="province-picker"></select>
+		<select id="city-picker"></select>
+	</form>
 	<script>
 		cityPicker.init({
 			pId: 'province-picker', //省id              必填
 			cId: 'city-picker',     //市id              必填
-			default: [5, 127]       //默认[省，市]id    非必填
+			default: [5, 127],      //默认[省，市]id    非必填
+			formId:"form"           //必填，不填写则form 发生reset事件的时候会出问题
 		})
 	</script>
  */
