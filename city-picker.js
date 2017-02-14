@@ -518,7 +518,13 @@ CityPicker.prototype = {
 		}
 	},
 	init: function(param) {
-		param.default = param.default || [1, 1];
+		var defaultForCookie=this.getCookie('prov-city');
+		if(defaultForCookie){
+			var arr=defaultForCookie.split('-');
+			param.default = [arr[0],arr[1]];
+		}else{
+			param.default = param.default || [1, 1];
+		}
 		var self = this,
 			fra = document.createDocumentFragment();
 		self.obj1 = document.getElementById(param.pId);
@@ -563,10 +569,32 @@ CityPicker.prototype = {
 		});
 		self.obj2.innerHTML = '';
 		self.obj2.appendChild(fra);
+		self.obj2.onchange = function() {
+			self.setCookie("prov-city",self.obj1.value+'-'+self.obj2.value,7);
+		}
+		self.setCookie("prov-city",self.obj1.value+'-'+self.obj2.value,7);
 	},
 	set:function(a,b){
 		this.obj1.value=a;
 		this.getCity([a,b]);
+	},
+	setCookie: function(c_name, value, expiredays) {
+		var exdate = new Date()
+		exdate.setDate(exdate.getDate() + expiredays)
+		document.cookie = c_name + "=" + escape(value) +
+			((expiredays == null) ? "" : ";expires=" + exdate.toGMTString())+";path=/"
+	},
+	getCookie: function(c_name) {
+		if (document.cookie.length > 0) {
+			c_start = document.cookie.indexOf(c_name + "=")
+			if (c_start != -1) {
+				c_start = c_start + c_name.length + 1
+				c_end = document.cookie.indexOf(";", c_start)
+				if (c_end == -1) c_end = document.cookie.length
+				return unescape(document.cookie.substring(c_start, c_end))
+			}
+		}
+		return ""
 	}
 }
 var cityPicker = new CityPicker();
