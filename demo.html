@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>省市联动插件</title>
+</head>
+<body>
+<form action="" id="form">
+	<select id="province-picker" onchange="alert(11)"></select>
+	<select id="city-picker" onreset="alert(1)"></select>
+</form>
+
+<!--
+	js压缩：https://www.npmjs.com/package/uglify-js
+	命令：uglifyjs city-picker.js -o city-picker.min.js 
+-->
+
+<script src="city-picker.js"></script>
+<script>
+cityPicker.init({
+	pId: 'province-picker', //省份id
+	cId: 'city-picker', //市id
+	default: [5, 127], // 默认[省，市]id 
+	formId:"form"
+});
+// setTimeout(function(){
+// 	cityPicker.set(6,140);
+// 	alert('更新')
+// },2000)
+</script>
+</body>
+</html>
